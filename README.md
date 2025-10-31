@@ -26,4 +26,8 @@ The `HashMap` class (or factory function) implements the following essential met
 * **Collision Handling:** Implementation of a strategy (e.g., separate chaining) to handle different keys that resolve to the same bucket index.
 * **Dynamic Resizing (Growth):** The map automatically *doubles* its capacity when the number of entries exceeds a predefined **load factor** (e.g., 0.75) to maintain performance.
 
-https://www.theodinproject.com/lessons/javascript-hashmap
+---
+
+## Source and Learning
+
+This project was built following the curriculum for **The Odin Project's** [JavaScript Hash Map](https://www.theodinproject.com/lessons/javascript-linked-lists](https://www.theodinproject.com/lessons/javascript-hashmap)) lesson.
