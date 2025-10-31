@@ -26,6 +26,7 @@ function HashMap() {
         if (!linkedListArray[hashCode].contains(key)) {
             // Add
             linkedListArray[hashCode].append(key, value);
+            // console.log(hashCode);
             itemCount++;
         }
         else if (linkedListArray[hashCode].contains(key)) {
@@ -63,11 +64,41 @@ function HashMap() {
         linkedListArray.length = 0;
         return;
     }
-    const keys = () => {}
-    const values = () => {}
-    const entries = () => {}
+    const keys = () => {
+        let keyString = "";
+        linkedListArray.forEach(bucket => {
+            const bucketString = bucket.toStringKeys();
+            if (bucketString) {
+                keyString += bucketString;
+                keyString  += ', ';
+            }
+        });
+        return keyString;
+    }
+    const values = () => {
+        let keyString = "";
+        linkedListArray.forEach(bucket => {
+            const bucketString = bucket.toStringValues();
+            if (bucketString) {
+                keyString += bucketString;
+                keyString  += ', ';
+            }
+        });
+        return keyString;
+    }
+    const entries = () => {
+        let keyString = "";
+        linkedListArray.forEach(bucket => {
+            const bucketString = bucket.toStringEntries();
+            if (bucketString) {
+                keyString += bucketString;
+                keyString  += ', ';
+            }
+        });
+        return keyString;
+    }
 
-    return {set, get, has, remove, length, clear};
+    return {set, get, has, remove, length, clear, keys, values, entries};
 }
 
 const test = HashMap();
@@ -77,18 +108,21 @@ test.set('carrot', 'orange');
 test.set('dog', 'brown');
 test.set('elephant', 'gray');
 
-console.log(test.get('apple'));
-console.log(test.get('banana'));
-console.log(test.get('carrot'));
+console.log(test.keys());
+console.log(test.values());
+console.log(test.entries());
+// console.log(test.get('apple'));
+// console.log(test.get('banana'));
+// console.log(test.get('carrot'));
 
-console.log(test.has('apple'));
-console.log(test.has('banana'));
-console.log(test.has('carrot'));
+// console.log(test.has('apple'));
+// console.log(test.has('banana'));
+// console.log(test.has('carrot'));
 
-console.log(test.length());
+// console.log(test.length());
 
-test.remove('apple');
+// test.remove('apple');
 
-console.log(test.length());
-console.log(test.get('apple'));
+// console.log(test.length());
+// console.log(test.get('apple'));
 

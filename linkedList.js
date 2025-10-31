@@ -105,16 +105,53 @@ function LinkedList() {
         return null;
     }
     
-    const toString = () => {
+    const toStringKeys = () => {
         let tempNode = head;
         let string = "";
     
         while (tempNode != null) {
-            string += `( ${tempNode.key} - ${tempNode.value} ) -> `;
+            string += `[ ${tempNode.key} ]`;
             tempNode = tempNode.nextNode;
         }
     
-        string += "null";
+        // string += "null";
+        if (string == "") {
+            return null;
+        }
+    
+        return string;
+    }
+
+    const toStringValues = () => {
+        let tempNode = head;
+        let string = "";
+    
+        while (tempNode != null) {
+            string += `[ ${tempNode.value} ]`;
+            tempNode = tempNode.nextNode;
+        }
+    
+        // string += "null";
+        if (string == "") {
+            return null;
+        }
+    
+        return string;
+    }
+
+    const toStringEntries = () => {
+        let tempNode = head;
+        let string = "";
+    
+        while (tempNode != null) {
+            string += `[ ${tempNode.key}, ${tempNode.value} ]`;
+            tempNode = tempNode.nextNode;
+        }
+    
+        // string += "null";
+        if (string == "") {
+            return null;
+        }
     
         return string;
     }
@@ -123,7 +160,7 @@ function LinkedList() {
     //     let keyArray = 
     // }
 
-    return {append, at, contains, find, toString, replace, remove}
+    return {append, at, contains, find, toStringKeys, toStringValues, toStringEntries, replace, remove}
 }
 
 function Node(key, value) {
