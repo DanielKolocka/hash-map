@@ -2,7 +2,7 @@ import { LinkedList } from "./linkedList.js";
 
 function HashMap() {
     const loadFactor = 0.75;
-    const capacity = 16;
+    let capacity = 16;
     let itemCount = 0;
 
     let linkedListArray = [];
@@ -21,10 +21,26 @@ function HashMap() {
         return hashCode % capacity;
     }
 
+    const doubleCapacity = () => {
+        capacity *= 2;
+        let tempArray = entriesArray();
+        linkedListArray = [];
+        itemCount = 0;
+        for (let i = 0; i < capacity; i++) {
+            linkedListArray[i] = LinkedList();
+        }
+        tempArray.forEach(list => {
+            list.forEach(pair => {
+                set(pair[0], pair[1]);
+            });
+        });
+        tempArray = null;
+
+    }
+
     const set = (key, value) => {
         const hashCode = hash(key);
         if (!linkedListArray[hashCode].contains(key)) {
-            // Add
             linkedListArray[hashCode].append(key, value);
             // console.log(hashCode);
             itemCount++;
@@ -32,9 +48,13 @@ function HashMap() {
         else if (linkedListArray[hashCode].contains(key)) {
             linkedListArray[hashCode].replace(key, value);
         }
-
-        // If load factor is reached
-            // Double the capacity
+        
+        // Check if we need to grow our buckets array
+        if (length() > loadFactor * capacity) {
+            // capacity *= 2;
+            
+            doubleCapacity();
+        }
 
         return;
     }
@@ -62,6 +82,7 @@ function HashMap() {
     }
     const clear = () => {
         linkedListArray.length = 0;
+        itemCount = 0;
         return;
     }
     const keys = () => {
@@ -98,31 +119,52 @@ function HashMap() {
         return keyString;
     }
 
-    return {set, get, has, remove, length, clear, keys, values, entries};
+    const entriesArray = () => {
+        let arrayEntries = [];
+        linkedListArray.forEach(bucket => {
+            const bucketValue = bucket.toArrayEntries();
+            if (bucketValue) {
+                arrayEntries.push(bucketValue);
+            }
+        });
+        return arrayEntries;
+    }
+
+    return {set, get, has, remove, length, clear, keys, values, entries, entriesArray};
 }
 
-const test = HashMap();
-test.set('apple', 'red');
-test.set('banana', 'yellow');
-test.set('carrot', 'orange');
-test.set('dog', 'brown');
-test.set('elephant', 'gray');
+// const test = HashMap();
 
-console.log(test.keys());
-console.log(test.values());
-console.log(test.entries());
-// console.log(test.get('apple'));
-// console.log(test.get('banana'));
-// console.log(test.get('carrot'));
+// test.set('apple', 'red')
+// test.set('banana', 'yellow')
+// test.set('carrot', 'orange')
+// test.set('dog', 'brown')
+// test.set('elephant', 'gray')
+// test.set('frog', 'green')
+// test.set('grape', 'purple')
+// test.set('hat', 'black')
+// test.set('ice cream', 'white')
+// test.set('jacket', 'blue')
+// test.set('kite', 'pink')
+// test.set('lion', 'golden')
 
-// console.log(test.has('apple'));
-// console.log(test.has('banana'));
-// console.log(test.has('carrot'));
+// console.log(`Length: ${test.length()}`);
 
-// console.log(test.length());
+// test.set('jacket', 'green')
+// test.set('kite', 'brown')
+// test.set('lion', 'white')
 
-// test.remove('apple');
+// console.log(`Length: ${test.length()}`);
 
-// console.log(test.length());
-// console.log(test.get('apple'));
+// test.set('moon', 'silver')
 
+// console.log(`Length: ${test.length()}`);
+
+// test.set('jacket', 'blue')
+// test.set('kite', 'blue')
+// test.set('lion', 'blue')
+
+// console.log(test.entries());
+
+// test.clear();
+// console.log(`Length: ${test.length()}`);

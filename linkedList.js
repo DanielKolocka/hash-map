@@ -139,6 +139,20 @@ function LinkedList() {
         return string;
     }
 
+    const toArrayEntries = () => {
+        let tempNode = head;
+        let tempArray = [];
+
+        while (tempNode != null) {
+            tempArray.push([tempNode.key, tempNode.value]);
+            tempNode = tempNode.nextNode;
+        }
+        if (tempArray.length == 0) {
+            return null;
+        }
+        return tempArray;
+    }
+
     const toStringEntries = () => {
         let tempNode = head;
         let string = "";
@@ -156,11 +170,7 @@ function LinkedList() {
         return string;
     }
 
-    // const getKeys = () => {
-    //     let keyArray = 
-    // }
-
-    return {append, at, contains, find, toStringKeys, toStringValues, toStringEntries, replace, remove}
+    return {append, at, contains, find, toStringKeys, toStringValues, toArrayEntries, toStringEntries, replace, remove}
 }
 
 function Node(key, value) {
